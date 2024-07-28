@@ -37,7 +37,7 @@ contract TestGameSetup is Test {
         bingo.joinGame{value: EXPECTED_GAME_COST}();
     }
 
-    function testShouldJoinGameWhenEnoughFunds() public {
+    function testGameCollectsCostFromPlayerOnJoining() public {
         address player = vm.addr(1); // Use anvil's default address
         hoax(player, 1 ether);
         bingo.joinGame{value: EXPECTED_GAME_COST}(); // Player attempts to join the game

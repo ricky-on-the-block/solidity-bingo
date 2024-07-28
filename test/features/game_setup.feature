@@ -15,6 +15,13 @@ Feature: Game Setup and Joining
     Then the player should be successfully added to the game
     And the number of players in the game should increase by 1
 
+  @failure
+  Scenario: Player attempts to join a full game
+    Given the game has reached the maximum number of players
+    When a new player tries to join the game
+    Then the player should not be added to the game
+    And an error message should be displayed, such as "Game is full"
+
   Scenario: Game collects cost from player on joining
     Given a player has more than 0.1 ETH in their wallet
     When the player joins the game
