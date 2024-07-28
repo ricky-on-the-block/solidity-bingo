@@ -5,6 +5,7 @@ import {IBingo} from "./IBingo.sol";
 
 contract Bingo {
     uint256 public constant GAME_COST = 100 gwei;
+    uint256 public constant NUM_PLAYERS = 5;
 
     constructor() {}
 
