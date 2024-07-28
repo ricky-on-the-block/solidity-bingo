@@ -14,8 +14,6 @@ Feature: Game Setup and Joining
     When the player attempts to join the game
     Then the player should be successfully added to the game
     And the number of players in the game should increase by 1
-    And the player's balance should decrease by the game cost
-    And the game's pot should increase by the game cost
 
   Scenario: Game collects cost from player on joining
     Given a player has more than 0.1 ETH in their wallet

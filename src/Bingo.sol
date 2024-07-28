@@ -12,4 +12,8 @@ contract Bingo {
     function gameCost() public pure returns(uint256 gameCostWei) {
         gameCostWei = GAME_COST;
     }
+
+    function joinGame() external payable {
+        require(msg.value >= GAME_COST, "Insufficient funds to join the game");
+    }
 }

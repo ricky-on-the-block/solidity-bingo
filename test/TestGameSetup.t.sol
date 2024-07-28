@@ -12,7 +12,7 @@ contract TestGameSetup is Test {
         bingo = new Bingo();
     }
 
-    function testGameCost() public view {
+    function test_GameCost() public view {
         // Given the game cost is set to 100 gwei
         // When we call getGameCost
         uint256 actualCost = bingo.gameCost();
@@ -21,10 +21,9 @@ contract TestGameSetup is Test {
         assertEq(actualCost, EXPECTED_GAME_COST, "Game cost should be 100 gwei");
     }
 
-    function testJoinGame() public {
+    function testShouldJoinGameWhenEnoughFunds() public {
         address player = vm.addr(1); // Use anvil's default address
-        vm.deal(player, 1 ether); // Ensure the player has enough ETH
-        vm.prank(player); // Impersonate the player
+        hoax(player, 1 ether);
         bingo.joinGame{value: EXPECTED_GAME_COST}(); // Player attempts to join the game
 
         // Check if the player's balance decreased by the game cost
