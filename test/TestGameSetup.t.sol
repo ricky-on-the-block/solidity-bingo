@@ -21,6 +21,22 @@ contract TestGameSetup is Test {
         assertEq(actualCost, EXPECTED_GAME_COST, "Game cost should be 100 gwei");
     }
 
+    function testRevertWhenJoiningFullGame() public {
+        // Setup: Fill the game with the maximum number of players
+        for (uint i = 1; i < 6; i++) {
+            hoax(vm.addr(i), 1 ether); // Impersonate different players
+            bingo.joinGame{value: EXPECTED_GAME_COST}();
+        }
+
+        // Test: Attempt to join the game with one more player
+        address extraPlayer = vm.addr(6);
+        hoax(extraPlayer, 1 ether);
+        
+        // Expectation: This should fail as the game is already full
+        vm.expectRevert();
+        bingo.joinGame{value: EXPECTED_GAME_COST}();
+    }
+
     function testShouldJoinGameWhenEnoughFunds() public {
         address player = vm.addr(1); // Use anvil's default address
         hoax(player, 1 ether);
