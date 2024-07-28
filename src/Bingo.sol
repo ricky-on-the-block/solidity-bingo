@@ -5,7 +5,8 @@ import {IBingo} from "./IBingo.sol";
 
 contract Bingo {
     uint256 public constant GAME_COST = 100 gwei;
-    uint256 public constant NUM_PLAYERS = 5;
+    uint256 public constant PLAYER_CAP = 5;
+    uint256 public numPlayers;
 
     constructor() {}
 
@@ -15,5 +16,8 @@ contract Bingo {
 
     function joinGame() external payable {
         require(msg.value >= GAME_COST, "Insufficient funds to join the game");
+        uint256 _numPlayers = numPlayers;
+        require(_numPlayers < PLAYER_CAP, "Game is full");
+        numPlayers = _numPlayers + 1;
     }
 }
