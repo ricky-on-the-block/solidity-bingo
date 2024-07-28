@@ -20,4 +20,17 @@ contract TestGameSetup is Test {
         // Then the returned cost should be 100 gwei
         assertEq(actualCost, EXPECTED_GAME_COST, "Game cost should be 100 gwei");
     }
+
+    function testJoinGame() public {
+        address player = vm.addr(1); // Use anvil's default address
+        vm.deal(player, 1 ether); // Ensure the player has enough ETH
+        vm.prank(player); // Impersonate the player
+        bingo.joinGame{value: EXPECTED_GAME_COST}(); // Player attempts to join the game
+
+        // Check if the player's balance decreased by the game cost
+        assertEq(player.balance, 1 ether - EXPECTED_GAME_COST, "Player's balance should decrease by the game cost");
+
+        // Check if the game's balance increased by the game cost
+        assertEq(address(bingo).balance, EXPECTED_GAME_COST, "Game's balance should increase by the game cost");
+    }
 }
