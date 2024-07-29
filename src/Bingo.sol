@@ -60,6 +60,14 @@ contract Bingo {
         return board;
     }
 
+/**
+* @notice Generates a random column for the bingo board using the Fisher-Yates shuffle algorithm
+* @dev The Fisher-Yates shuffle is an efficient algorithm for generating a random permutation of a finite set
+* @dev It is more efficient than using a mapping or bitpacking approach, as it avoids the need for additional storage or complex bit operations
+* @dev The algorithm works by iterating through the set of elements and swapping each element with a randomly chosen element from the remaining unshuffled elements
+* @param columnOffset The offset value used to generate the correct range of values for the column (e.g., 1 for 'B' column, 2 for 'I' column, etc.)
+* @return column An array of 5 random values representing the column of the bingo board
+*/
     function generateColumn(uint256 columnOffset) internal view returns (uint8[5] memory column) {
         uint8[15] memory fisherYates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
