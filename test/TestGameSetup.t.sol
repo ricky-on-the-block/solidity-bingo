@@ -2,6 +2,7 @@
 pragma solidity 0.8.26;
 
 import {Test} from "forge-std/Test.sol";
+import "forge-std/console.sol";
 import {Bingo} from "../src/Bingo.sol";
 
 contract TestGameSetup is Test {
@@ -55,15 +56,27 @@ contract TestGameSetup is Test {
         hoax(player, 1 ether);
         bingo.joinGame{value: EXPECTED_GAME_COST}();
 
-        // Then the player should receive a unique bingo board
-        uint8[25] memory playerBoard = bingo.boards(player);
+        // Then the player should receive a valid bingo board
+        Bingo.Board memory board = bingo.boards(player);
         bool hasZeroElement = false;
-        for (uint8 i = 0; i < playerBoard.length; i++) {
-            if (playerBoard[i] == 0) {
+        for (uint8 i = 0; i < 5; i++) {
+            if (board.bCol[i] == 0 || board.iCol[i] == 0 || board.nCol[i] == 0 || board.gCol[i] == 0 || board.oCol[i] == 0) {
                 hasZeroElement = true;
                 break;
             }
         }
+
+        console.log("Player's Bingo Board:");
+        console.log("B  I  N  G  O");
+        for (uint8 i = 0; i < 5; i++) {
+            console.log("B: ", board.bCol[i]);
+            console.log("I: ", board.iCol[i]);
+            console.log("N: ", board.nCol[i]);
+            console.log("G: ", board.gCol[i]);
+            console.log("O: ", board.oCol[i]);
+            console.log("-------------------");
+        }
+
         assertFalse(hasZeroElement, "Player board should not have any zero elements");
     }
 }
