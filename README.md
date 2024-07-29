@@ -1,66 +1,50 @@
-## Foundry
+# Solidity Bingo
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Solidity Bingo is an educational project demonstrating the application of Behavior-Driven Development (BDD) in iteratively developing a complex Solidity project. This project showcases how to build a decentralized Bingo game on the EVM, starting from feature specifications and progressing through multiple development phases.
 
-Foundry consists of:
+## Project Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+The goal of this project is to illustrate best practices in smart contract development, including:
 
-## Documentation
+- Iterative development using BDD
+- Gradual feature implementation
+- Code optimization
+- Scalability considerations
 
-https://book.getfoundry.sh/
+## Development Phases
 
-## Usage
+### Phase 1: Minimum Viable Product (MVP)
 
-### Build
+- Basic game functionality
+- Single game per contract
+- Fixed number of players and game cost
+- Optimized for gas efficiency
+- Simplified Random Number Generator (RNG) for testing
 
-```shell
-$ forge build
-```
+### Phase 2: Enhanced Functionality
 
-### Test
+- Bingo Boards implemented as Non-Fungible Tokens (NFTs)
+- Support for multiple concurrent games
+- Variable player count and betting amounts
 
-```shell
-$ forge test
-```
+### Phase 3: Advanced Features
 
-### Format
+(To be defined based on project progress and community feedback)
 
-```shell
-$ forge fmt
-```
+### Phase 4: Comprehensive Implementation
 
-### Gas Snapshots
+(To be defined based on project progress and community feedback)
 
-```shell
-$ forge snapshot
-```
+## Key Features
 
-### Anvil
+- Smart contract-based Bingo game
+- Transparent and verifiable gameplay
+- Scalable architecture for future enhancements
 
-```shell
-$ anvil
-```
+## License
 
-### Deploy
+This project is licensed under GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+## Disclaimer
 
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+This project is for educational purposes only. It is not intended for use in production environments without thorough security audits and further development.
