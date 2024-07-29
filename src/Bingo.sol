@@ -20,7 +20,7 @@ contract Bingo {
 
     constructor() {}
 
-    function gameCost() public pure returns(uint256 gameCostWei) {
+    function gameCost() public pure returns (uint256 gameCostWei) {
         gameCostWei = GAME_COST;
     }
 
@@ -33,7 +33,7 @@ contract Bingo {
         generateBoard(msg.sender);
     }
 
-    function boards(address player) public view returns(Board memory){
+    function boards(address player) public view returns (Board memory) {
         return playerBoards[player];
     }
 
@@ -49,7 +49,7 @@ contract Bingo {
      * @param player The address of the player for whom the board is being generated
      * @return board The generated bingo board
      */
-    function generateBoard(address player) internal returns(Board memory) {
+    function generateBoard(address player) internal returns (Board memory) {
         Board memory board = boards(player);
         board.bCol = generateColumn(1);
         board.iCol = generateColumn(2);
@@ -62,19 +62,19 @@ contract Bingo {
 
     function generateColumn(uint256 columnOffset) internal view returns (uint8[5] memory column) {
         uint8[15] memory fisherYates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-        
+
         // Perform Fisher-Yates shuffle for the first 5 elements
         for (uint8 i = 0; i < 5; i++) {
             uint8 j = i + (rng() % (15 - i));
             (fisherYates[i], fisherYates[j]) = (fisherYates[j], fisherYates[i]);
             column[i] = uint8(fisherYates[i] * columnOffset);
         }
-        
+
         return column;
     }
 
     // Mock a fake RNG for testing purposes
-    function rng() internal view returns(uint8) {
+    function rng() internal view returns (uint8) {
         return uint8(uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))));
     }
 }

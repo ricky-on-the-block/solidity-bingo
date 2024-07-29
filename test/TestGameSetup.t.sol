@@ -17,14 +17,14 @@ contract TestGameSetup is Test {
         // Given the game cost is set to 100 gwei
         // When we call getGameCost
         uint256 actualCost = bingo.gameCost();
-        
+
         // Then the returned cost should be 100 gwei
         assertEq(actualCost, EXPECTED_GAME_COST, "Game cost should be 100 gwei");
     }
 
     function testRevertWhenJoiningFullGame() public {
         // Setup: Fill the game with the maximum number of players
-        for (uint i = 1; i < 6; i++) {
+        for (uint256 i = 1; i < 6; i++) {
             hoax(vm.addr(i), 1 ether); // Impersonate different players
             bingo.joinGame{value: EXPECTED_GAME_COST}();
         }
@@ -32,7 +32,7 @@ contract TestGameSetup is Test {
         // Test: Attempt to join the game with one more player
         address extraPlayer = vm.addr(6);
         hoax(extraPlayer, 1 ether);
-        
+
         // Expectation: This should fail as the game is already full
         vm.expectRevert();
         bingo.joinGame{value: EXPECTED_GAME_COST}();
@@ -60,7 +60,10 @@ contract TestGameSetup is Test {
         Bingo.Board memory board = bingo.boards(player);
         bool hasZeroElement = false;
         for (uint8 i = 0; i < 5; i++) {
-            if (board.bCol[i] == 0 || board.iCol[i] == 0 || board.nCol[i] == 0 || board.gCol[i] == 0 || board.oCol[i] == 0) {
+            if (
+                board.bCol[i] == 0 || board.iCol[i] == 0 || board.nCol[i] == 0 || board.gCol[i] == 0
+                    || board.oCol[i] == 0
+            ) {
                 hasZeroElement = true;
                 break;
             }
