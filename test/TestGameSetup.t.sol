@@ -12,7 +12,7 @@ contract TestGameSetup is Test {
         bingo = new Bingo();
     }
 
-    function test_GameCost() public view {
+    function testGameCost() public view {
         // Given the game cost is set to 100 gwei
         // When we call getGameCost
         uint256 actualCost = bingo.gameCost();
@@ -47,5 +47,23 @@ contract TestGameSetup is Test {
 
         // Check if the game's balance increased by the game cost
         assertEq(address(bingo).balance, EXPECTED_GAME_COST, "Game's balance should increase by the game cost");
+    }
+
+    function testBingoBoardGeneratedWhenPlayerJoins() public {
+        // Given a player has joined the game
+        address player = vm.addr(1);
+        hoax(player, 1 ether);
+        bingo.joinGame{value: EXPECTED_GAME_COST}();
+
+        // Then the player should receive a unique bingo board
+        uint8[25] memory playerBoard = bingo.boards(player);
+        bool hasZeroElement = false;
+        for (uint8 i = 0; i < playerBoard.length; i++) {
+            if (playerBoard[i] == 0) {
+                hasZeroElement = true;
+                break;
+            }
+        }
+        assertFalse(hasZeroElement, "Player board should not have any zero elements");
     }
 }

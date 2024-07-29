@@ -1,4 +1,5 @@
 Feature: Game Setup and Joining
+
   Background:
     Given a bingo game smart contract is deployed
     And the game cost is set to 0.1 ETH
@@ -33,3 +34,9 @@ Feature: Game Setup and Joining
     When the 5th player joins the game
     Then the game state should change to "In Progress"
     And each player should be assigned a unique bingo card
+
+  Scenario: Bingo board is generated for player on joining
+    Given a player has joined the game
+    When the system generates a bingo board
+    Then the player should receive a unique bingo board
+    And the board should have a valid bingo configuration
